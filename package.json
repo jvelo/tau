@@ -1,0 +1,17 @@
+{
+  "name": "tau-editoru",
+  "version": "0.0.1",
+  "description": "𝜏 – pixel editor in polar coordinates",
+  "main": "index.js",
+  "repository": "https://github.com/jvelo/tau",
+  "author": "Jérôme Velociter",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "tsc-watch": "^1.0.16",
+    "typescript": "^2.7.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc-watch"
+  }
+}

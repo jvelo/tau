@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "module": "es6",
+    "target": "ES2016"
+  },
+  "include": [
+    "src",
+    "app.ts"
+  ],
+  "compileOnSave": true
+}
