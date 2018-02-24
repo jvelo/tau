@@ -1,5 +1,5 @@
 {
-  "name": "tau-editoru",
+  "name": "tau-editor",
   "version": "0.0.1",
   "description": "𝜏 – pixel editor in polar coordinates",
   "main": "index.js",

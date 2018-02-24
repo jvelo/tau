@@ -29,7 +29,7 @@ export class Editor {
   private pixelData: Uint8ClampedArray;
 
   private gridSettings: GridSettings = {
-    radialDivisions: 16,
+    radialDivisions: 128,
     pixelLength: 25,
     length: 10,
     origin: "centered"
@@ -61,12 +61,11 @@ export class Editor {
     this.width = width;
     this.height = height ? height : width;
 
-    this.initPixels();
     this.hookColorPicker();
     this.createCanvas();
   }
 
-  hookColorPicker() {
+  private hookColorPicker() {
     const picker: any = document.querySelector("color-picker");
     picker.addEventListener("color-change", () => {
       const { state } = picker;
@@ -74,16 +73,7 @@ export class Editor {
     });
   }
 
-  initPixels() {
-    for (let i = 0; i < this.polarPixels.length; i += 4) {
-      this.polarPixels[i] = undefined;
-      this.polarPixels[i + 1] = undefined;
-      this.polarPixels[i + 2] = undefined;
-      this.polarPixels[i + 3] = 255; // alpha transparency
-    }
-  }
-
-  createCanvas() {
+  private createCanvas() {
     this.canvas = document.createElement('canvas');
     this.canvas.width = this.width;
     this.canvas.height = this.height;
@@ -101,15 +91,15 @@ export class Editor {
     window.requestAnimationFrame(this.render.bind(this));
   }
 
-  onMouseMove(event: MouseEvent) {
+  private onMouseMove(event: MouseEvent) {
     this.cursor = [event.layerX, event.layerY];
   }
 
-  onMouseOut() {
+  private onMouseOut() {
     delete this.cursor;
   }
 
-  onClick() {
+  private onClick() {
     const cursorIndex = this.getCursorIndex();
     if (cursorIndex > 0) {
       this.polarPixels[4 * cursorIndex] = this.selectedColor[0];
@@ -119,7 +109,7 @@ export class Editor {
     }
   }
 
-  renderPixels() {
+  private renderPixels() {
     let cursorIndex = this.getCursorIndex();
 
     for (let i = 0; i < this.width * this.height; i++) {
@@ -160,7 +150,7 @@ export class Editor {
     return cursorIndex;
   }
 
-  render() {
+  private render() {
     window.requestAnimationFrame(this.render.bind(this));
     this.renderPixels();
     this.context.putImageData(this.imageData, 0, 0);
