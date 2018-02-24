@@ -2,9 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-type Point = [number, number];
+import { ToolColorPicker } from "./toolbar";
 
-type Color = [number, number, number, number];
+export type Point = [number, number];
+
+export type Color = [number, number, number, number];
 
 interface GridSettings {
   radialDivisions: number;
@@ -61,16 +63,7 @@ export class Editor {
     this.width = width;
     this.height = height ? height : width;
 
-    this.hookColorPicker();
     this.createCanvas();
-  }
-
-  private hookColorPicker() {
-    const picker: any = document.querySelector("color-picker");
-    picker.addEventListener("color-change", () => {
-      const { state } = picker;
-      this.selectedColor = [state.rgb.r, state.rgb.g, state.rgb.b, 255];
-    });
   }
 
   private createCanvas() {
@@ -87,6 +80,9 @@ export class Editor {
     this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
     this.canvas.addEventListener('mouseout', this.onMouseOut.bind(this));
     this.canvas.addEventListener('click', this.onClick.bind(this));
+
+    const colorPicker = document.querySelector('tau-tool-color-picker') as ToolColorPicker;
+    colorPicker.addEventListener("color-selected", () => this.selectedColor = colorPicker.selectedColor);
 
     window.requestAnimationFrame(this.render.bind(this));
   }
